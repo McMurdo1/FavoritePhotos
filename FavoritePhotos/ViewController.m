@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "ImageWithURL.h"
 
 @interface ViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UISearchBarDelegate>
 {
@@ -52,7 +53,9 @@
              // Array full of image dictionary objects
              [imageInfoArray addObject:photo];
              NSURL *photoURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://farm%@.staticflickr.com/%@/%@_%@_z.jpg",[photo objectForKey:@"farm"], [photo objectForKey:@"server"], [photo objectForKey:@"id"], [photo objectForKey:@"secret"]]];
-             [images addObject:[UIImage imageWithData:[NSData dataWithContentsOfURL:photoURL]]];
+             ImageWithURL *imageWithURL = [ImageWithURL imageWithData:[NSData dataWithContentsOfURL:photoURL]];
+             imageWithURL.URL = photoURL;
+             [images addObject:imageWithURL];
          }
          
          [photoCollectionView reloadData];
